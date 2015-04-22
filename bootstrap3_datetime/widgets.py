@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.forms.utils import flatatt
 import django
 if django.VERSION >= (1,9):
     from django.forms.utils import flatatt
