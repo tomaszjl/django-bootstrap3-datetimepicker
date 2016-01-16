@@ -19,6 +19,11 @@ except ImportError:  # python3
     from django.utils.encoding import force_text
 
 
+lang_map = {
+    'tzm-la': 'tzm-latn',
+    'zh-hk': 'zh-TW',
+}
+
 class DateTimePicker(DateTimeInput):
     class Media:
         class JsFiles(object):
@@ -28,28 +33,9 @@ class DateTimePicker(DateTimeInput):
                 lang = translation.get_language()
                 if lang:
                     lang = lang.lower()
-                    #There is language name that length>2 *or* contains uppercase.
-                    lang_map = {
-                        'ar-ma': 'ar-ma',
-                        'en-au': 'en-au',
-                        'en-ca': 'en-ca',
-                        'en-gb': 'en-gb',
-                        'en-us': 'en-us',
-                        'fa-ir': 'fa-ir',
-                        'fr-ca': 'fr-ca',
-                        'ms-my': 'ms-my',
-                        'pt-br': 'bt-BR',
-                        'rs-latin': 'rs-latin',
-                        'tzm-la': 'tzm-la',
-                        'tzm': 'tzm',
-                        'zh-cn': 'zh-CN',
-                        'zh-tw': 'zh-TW',
-                        'zh-hk': 'zh-TW',
-                    }
-                    if len(lang) > 2:
-                        lang = lang_map.get(lang, 'en-us')
+                    lang = lang_map.get(lang, lang)
                     if lang not in ('en', 'en-us'):
-                        yield 'bootstrap3_datetime/js/locales/bootstrap-datetimepicker.%s.js' % (lang)
+                        yield 'bootstrap3_datetime/js/locale/%s.js' % (lang)
 
         js = JsFiles()
         css = {'all': ('bootstrap3_datetime/css/bootstrap-datetimepicker.min.css',), }
