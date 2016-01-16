@@ -43,7 +43,7 @@ The ``options`` will be passed to the JavaScript datetimepicker
 instance. Available ``options`` are explained in the following
 documents:
 
--  http://eonasdan.github.io/bootstrap-datetimepicker/
+-  http://eonasdan.github.io/bootstrap-datetimepicker/Options/
 
 You don't need to set the ``language`` option, because it will be set
 the current language of the thread automatically.
@@ -119,7 +119,7 @@ v2.0.0
 Requirements
 ------------
 
--  Python >= 2.4
--  Django >= 1.3
+-  Python >= 2.4 (tested with Python 3.4)
+-  Django >= 1.3 (tested with Django 1.9)
 -  Bootstrap >= 3.0
 
