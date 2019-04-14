@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import random
+import string
+
 import django
 if django.VERSION >= (1,9):
     from django.forms.utils import flatatt
@@ -26,18 +29,7 @@ lang_map = {
 
 class DateTimePicker(DateTimeInput):
     class Media:
-        class JsFiles(object):
-            def __iter__(self):
-                yield 'bootstrap3_datetime/js/moment.min.js'
-                yield 'bootstrap3_datetime/js/bootstrap-datetimepicker.min.js'
-                lang = translation.get_language()
-                if lang:
-                    lang = lang.lower()
-                    lang = lang_map.get(lang, lang)
-                    if lang not in ('en', 'en-us'):
-                        yield 'bootstrap3_datetime/js/locale/%s.js' % (lang)
-
-        js = JsFiles()
+        js = ['bootstrap3_datetime/js/moment.min.js', 'bootstrap3_datetime/js/bootstrap-datetimepicker.min.js', 'bootstrap3_datetime/js/locale/en-gb.js']
         css = {'all': ('bootstrap3_datetime/css/bootstrap-datetimepicker.min.css',), }
 
     # http://momentjs.com/docs/#/parsing/string-format/
@@ -120,7 +112,7 @@ class DateTimePicker(DateTimeInput):
             input_attrs['value'] = force_text(self.format_value(value))
         input_attrs = dict([(key, conditional_escape(val)) for key, val in input_attrs.items()])  # python2.6 compatible
         if not self.picker_id:
-             self.picker_id = (input_attrs.get('id', '') +
+             self.picker_id = (input_attrs.get('id', ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))) +
                                '_pickers').replace(' ', '_')
         self.div_attrs['id'] = self.picker_id
         picker_id = conditional_escape(self.picker_id)
